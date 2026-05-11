@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mes Tâches — Florent Garrigos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0e0f13;
+    --bg2: #15161c;
+    --bg3: #1c1e27;
+    --border: rgba(255,255,255,0.08);
+    --text: #e8e6e0;
+    --muted: #8a8880;
+    --accent: #c9a96e;
+    --nav-h: 64px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; min-height: 100vh; }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: var(--nav-h); background: rgba(14, 15, 19, 0.8);
+    backdrop-filter: blur(10px); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; z-index: 100;
+  }
+  nav .logo { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--accent); text-decoration: none; }
+  nav .links { display: flex; gap: 30px; }
+  nav .links a { text-decoration: none; color: var(--muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+  nav .links a:hover { color: var(--text); }
+  .content { padding: 140px 40px 80px; max-width: 900px; margin: 0 auto; }
+  .section-label { color: var(--accent); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; margin-bottom: 1rem; display: block; }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: 3rem; margin-bottom: 3rem; }
+  .task-list { margin-bottom: 4rem; }
+  .task-item {
+    display: flex; gap: 30px; padding: 40px;
+    background: var(--bg2); border: 1px solid var(--border);
+    margin-bottom: 20px; transition: 0.3s;
+  }
+  .task-item:hover { border-color: var(--accent); background: var(--bg3); }
+  .task-index { font-family: 'DM Serif Display', serif; font-size: 1.5rem; color: var(--accent); opacity: 0.6; }
+  .task-body { flex: 1; }
+  .task-title { font-size: 1.2rem; font-weight: 500; margin-bottom: 10px; display: block; }
+  .task-desc { color: var(--muted); line-height: 1.6; font-size: 0.95rem; }
+  .task-badge {
+    padding: 4px 12px; border-radius: 20px; font-size: 0.7rem;
+    text-transform: uppercase; letter-spacing: 1px; height: fit-content;
+  }
+  .badge-tech { background: rgba(110, 158, 201, 0.1); color: #6e9ec9; border: 1px solid rgba(110, 158, 201, 0.2); }
+  .badge-support { background: rgba(201, 169, 110, 0.1); color: #c9a96e; border: 1px solid rgba(201, 169, 110, 0.2); }
+  
+  .bilan-box { border-top: 1px solid var(--border); padding-top: 40px; margin-top: 60px; }
+  .bilan-box h2 { font-family: 'DM Serif Display', serif; font-size: 2rem; margin-bottom: 20px; }
+  .bilan-box p { color: var(--muted); line-height: 1.7; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">FG.</a>
+  <div class="links">
+    <a href="index.html">Accueil</a>
+    <a href="taches.html" style="color: var(--text);">Missions</a>
+    <a href="projet.html">Projet</a>
+    <a href="veille.html">Veille</a>
+  </div>
+</nav>
+
+<div class="content">
+  <span class="section-label">Parcours Professionnel</span>
+  <h1 class="section-title">Missions réalisées</h1>
+
+  <div class="task-list">
+    <div class="task-item">
+      <span class="task-index">01</span>
+      <div class="task-body">
+        <span class="task-title">Déploiement et Administration Aruba</span>
+        <span class="task-desc">Préparation de commutateurs Aruba (configuration initiale), expédition sur site et transmission de connaissances à l'équipe sur l'interface de gestion Aruba Central.</span>
+      </div>
+      <span class="task-badge badge-tech">Infrastructure</span>
+    </div>
+
+    <div class="task-item">
+      <span class="task-index">02</span>
+      <div class="task-body">
+        <span class="task-title">Installation Physique et Brassage</span>
+        <span class="task-desc">Interventions de proximité pour le brassage de baies de brassage et l'installation physique de switchs sur différents sites du groupe.</span>
+      </div>
+      <span class="task-badge badge-tech">Terrain</span>
+    </div>
+
+    <div class="task-item">
+      <span class="task-index">03</span>
+      <div class="task-body">
+        <span class="task-title">Maintenance de Stockage (NAS)</span>
+        <span class="task-desc">Opérations de resynchronisation des données, mises à jour logicielles et rédaction de procédures techniques pour la pérennité des serveurs NAS.</span>
+      </div>
+      <span class="task-badge badge-support">Système</span>
+    </div>
+
+    <div class="task-item">
+      <span class="task-index">04</span>
+      <div class="task-body">
+        <span class="task-title">Supervision Réseau (Coservit)</span>
+        <span class="task-desc">Intégration des nouveaux équipements dans le logiciel de supervision Coservit avant leur envoi sur site afin d'assurer un monitoring immédiat après installation.</span>
+      </div>
+      <span class="task-badge badge-tech">Monitoring</span>
+    </div>
+  </div>
+
+  <div class="bilan-box">
+    <h2>Bilan de compétences</h2>
+    <p>
+      Ces missions m'ont permis de développer une vision globale du métier de technicien réseau : de la préparation logicielle en atelier au déploiement physique sur le terrain. L'utilisation d'outils professionnels comme <strong>Aruba Central</strong> et <strong>Coservit</strong> renforce ma capacité à administrer des parcs informatiques de grande envergure.
+    </p>
+  </div>
+</div>
+
+</body>
+</html>

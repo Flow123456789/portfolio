@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veille Technologique — Florent Garrigos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0e0f13;
+    --bg2: #15161c;
+    --bg3: #1c1e27;
+    --border: rgba(255,255,255,0.08);
+    --text: #e8e6e0;
+    --muted: #8a8880;
+    --accent: #c9a96e;
+    --nav-h: 64px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; min-height: 100vh; }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: var(--nav-h); background: rgba(14, 15, 19, 0.8);
+    backdrop-filter: blur(10px); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; z-index: 100;
+  }
+  nav .logo { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--accent); text-decoration: none; }
+  nav .links { display: flex; gap: 30px; }
+  nav .links a { text-decoration: none; color: var(--muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+  nav .links a:hover { color: var(--text); }
+  
+  .content { padding: 140px 40px 80px; max-width: 900px; margin: 0 auto; }
+  .section-label { color: var(--accent); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; margin-bottom: 1rem; display: block; }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(2.5rem, 5vw, 3.5rem); margin-bottom: 2rem; }
+  
+  .intro-text { font-size: 1.1rem; line-height: 1.7; color: var(--muted); margin-bottom: 4rem; }
+
+  .news-grid { display: grid; gap: 20px; margin-bottom: 5rem; }
+  .news-item {
+    background: var(--bg2); border: 1px solid var(--border); padding: 30px;
+    display: flex; justify-content: space-between; align-items: flex-start;
+    transition: 0.3s;
+  }
+  .news-item:hover { border-color: var(--accent); background: var(--bg3); }
+  .news-title { font-size: 1.15rem; font-weight: 500; margin-bottom: 10px; color: var(--text); }
+  .news-summary { color: var(--muted); font-size: 0.95rem; line-height: 1.5; padding-right: 20px; }
+  .news-date { font-size: 0.75rem; color: var(--accent); font-weight: 500; white-space: nowrap; }
+
+  .synthesis-block { margin-top: 40px; padding: 30px; border-left: 2px solid var(--accent); background: rgba(201, 169, 110, 0.03); }
+  .synthesis-block h3 { font-family: 'DM Serif Display', serif; font-size: 1.5rem; margin-bottom: 15px; color: var(--accent); }
+  .synthesis-block p { line-height: 1.6; color: var(--muted); margin-bottom: 15px; }
+
+  .tool-list { display: flex; gap: 10px; margin-top: 20px; }
+  .tool-tag { font-size: 0.7rem; padding: 4px 10px; border: 1px solid var(--border); color: var(--muted); }
+
+  @media (max-width: 768px) { .news-item { flex-direction: column-reverse; gap: 15px; } .content { padding: 100px 20px 40px; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">FG.</a>
+  <div class="links">
+    <a href="index.html">Accueil</a>
+    <a href="taches.html">Missions</a>
+    <a href="projet.html">Projet</a>
+    <a href="veille.html" style="color: var(--text);">Veille</a>
+  </div>
+</nav>
+
+<div class="content">
+  <span class="section-label">Veille Technologique</span>
+  <h1 class="section-title">Zero Trust Architecture & Contrôle d'Accès</h1>
+  
+  <p class="intro-text">
+    Ma veille explore le modèle <strong>Zero Trust</strong> ("Ne jamais faire confiance, toujours vérifier"). Cette approche est au cœur de mon projet chez NGE, où <strong>Aruba ClearPass</strong> agit comme le pilier central de cette architecture en gérant dynamiquement les autorisations.
+  </p>
+
+  <p class="section-label">Actualités & Technologies</p>
+  <div class="news-grid">
+    <div class="news-item">
+      <div>
+        <p class="news-title">Aruba ClearPass : Le moteur du Zero Trust</p>
+        <p class="news-summary">Analyse de l'importance du NAC (Network Access Control) pour l'identification granulaire des utilisateurs et des terminaux avant toute connexion au LAN.</p>
+      </div>
+      <span class="news-date">MARS 2024</span>
+    </div>
+
+    <div class="news-item">
+      <div>
+        <p class="news-title">Sécurité des infrastructures et ISO 27001</p>
+        <p class="news-summary">Comment les politiques de "moindre privilège" imposées par la norme ISO 27001 se traduisent techniquement dans les configurations réseau modernes.</p>
+      </div>
+      <span class="news-date">JANV 2024</span>
+    </div>
+  </div>
+
+  <p class="section-label">Analyse & Synthèse</p>
+  
+  <div class="synthesis-block">
+    <h3>ClearPass au cœur de la stratégie ZTA</h3>
+    <p>Le <strong>Zero Trust</strong> repose sur la vérification constante de l'identité. Dans mon environnement chez NGE, c'est <strong>ClearPass</strong> qui assure cette fonction critique en agissant comme le point de décision (Policy Decision Point). Il permet d'automatiser la sécurité en fonction du contexte de connexion.</p>
+    <p>En complément, <strong>Aruba Central</strong> apporte la visibilité nécessaire et la gestion centralisée du cloud pour administrer ce modèle sur les 130 sites du groupe, garantissant une application homogène des règles de sécurité.</p>
+    
+    <div class="tool-list">
+      <span class="tool-tag">Documentation Aruba Networks</span>
+      <span class="tool-tag">ZTA - Policy Decision Point</span>
+      <span class="tool-tag">Norme ISO 27001</span>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

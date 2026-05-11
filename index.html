@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Florent Garrigos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0e0f13;
+    --bg2: #15161c;
+    --bg3: #1c1e27;
+    --border: rgba(255,255,255,0.08);
+    --text: #e8e6e0;
+    --muted: #8a8880;
+    --accent: #c9a96e;
+    --accent2: #6e9ec9;
+    --nav-h: 64px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; font-weight: 300; min-height: 100vh; }
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: var(--nav-h); background: rgba(14, 15, 19, 0.8);
+    backdrop-filter: blur(10px); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; z-index: 100;
+  }
+  nav .logo { font-family: 'DM Serif Display', serif; font-size: 1.2rem; color: var(--accent); text-decoration: none; }
+  nav .links { display: flex; gap: 30px; }
+  nav .links a { text-decoration: none; color: var(--muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: color 0.3s; }
+  nav .links a:hover { color: var(--text); }
+  section { padding: 140px 40px 80px; max-width: 1200px; margin: 0 auto; }
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: clamp(3rem, 8vw, 5.5rem); line-height: 1.1; margin-bottom: 40px; }
+  .hero-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 60px; }
+  .hero-card { background: var(--bg2); border: 1px solid var(--border); padding: 30px; text-decoration: none; color: inherit; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); display: flex; flex-direction: column; justify-content: space-between; min-height: 200px; }
+  .hero-card:hover { background: var(--bg3); border-color: var(--accent); transform: translateY(-5px); }
+  .hero-card-num { font-size: 0.8rem; color: var(--accent); margin-bottom: 20px; }
+  .hero-card-title { font-family: 'DM Serif Display', serif; font-size: 1.8rem; margin-bottom: 10px; }
+  .hero-card-desc { color: var(--muted); font-size: 0.95rem; line-height: 1.5; }
+  .divider { height: 1px; background: var(--border); margin: 40px 0; border: none; }
+  .section { padding: 80px 0; max-width: 800px; }
+  .section-label { color: var(--accent); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; margin-bottom: 20px; }
+  .section h2 { font-family: 'DM Serif Display', serif; font-size: 2.5rem; margin-bottom: 30px; }
+  .section p { font-size: 1.1rem; line-height: 1.7; color: var(--muted); margin-bottom: 40px; }
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; border-top: 1px solid var(--border); padding-top: 40px; }
+  .info-cell-label { font-size: 0.75rem; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; }
+  .info-cell-value { font-size: 1.2rem; font-weight: 400; }
+  footer { padding: 40px; text-align: center; color: var(--muted); font-size: 0.8rem; border-top: 1px solid var(--border); }
+  strong { color: var(--text); font-weight: 400; }
+  @media (max-width: 768px) { .info-grid { grid-template-columns: 1fr; } nav { padding: 0 20px; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">FG.</a>
+  <div class="links">
+    <a href="index.html" style="color: var(--text);">Accueil</a>
+    <a href="taches.html">Missions</a>
+    <a href="projet.html">Projet</a>
+    <a href="veille.html">Veille</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Portfolio Épreuve E4</h1>
+  <div class="hero-cards">
+    <a href="taches.html" class="hero-card">
+      <span class="hero-card-num">01</span>
+      <span class="hero-card-title">Mes Missions</span>
+      <span class="hero-card-desc">Découvrez les activités et tickets réalisés au sein de la DSI.</span>
+    </a>
+    <a href="projet.html" class="hero-card">
+      <span class="hero-card-num">02</span>
+      <span class="hero-card-title">Mon Projet</span>
+      <span class="hero-card-desc">L'étude détaillée d'une infrastructure réseau mise en place chez NGE.</span>
+    </a>
+    <a href="veille.html" class="hero-card">
+      <span class="hero-card-num">03</span>
+      <span class="hero-card-title">Veille Tech</span>
+      <span class="hero-card-desc">Analyse des évolutions technologiques dans le monde des réseaux.</span>
+    </a>
+  </div>
+</section>
+
+<hr class="divider">
+
+<div class="section" style="margin: 0 auto;">
+  <p class="section-label">Présentation</p>
+  <h2>Qui suis-je ?</h2>
+  <p>
+    Je m'appelle <strong>Florent Garrigos</strong>, étudiant au sein de <strong>M2S Formation</strong>. 
+    Actuellement en alternance chez <strong>NGE Service</strong>, j'ai intégré l'équipe infrastructure au cœur de la DSI. 
+    Ma mission est d'assurer le bon fonctionnement, la maintenance et l'optimisation des équipements réseaux pour répondre aux besoins critiques d'un grand groupe de BTP.
+  </p>
+
+  <div class="info-grid">
+    <div class="info-cell">
+      <div class="info-cell-label">Formation</div>
+      <div class="info-cell-value">BTS SIO SISR (Alternance)</div>
+    </div>
+    <div class="info-cell">
+      <div class="info-cell-label">Entreprise</div>
+      <div class="info-cell-value">NGE Service DSI</div>
+    </div>
+    <div class="info-cell">
+      <div class="info-cell-label">Période</div>
+      <div class="info-cell-value">Sept. 2025 — Juil. 2027</div>
+    </div>
+    <div class="info-cell">
+      <div class="info-cell-label">Poste</div>
+      <div class="info-cell-value">Technicien Réseau</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © 2024 Florent Garrigos — Portfolio BTS SIO
+</footer>
+
+</body>
+</html>
