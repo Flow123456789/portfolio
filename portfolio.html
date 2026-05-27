@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Florent Garrigos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0b0713;
+    --glass-bg: rgba(23, 15, 38, 0.6);
+    --glass-border: rgba(168, 85, 247, 0.2);
+    --glass-border-hover: rgba(168, 85, 247, 0.4);
+    --text: #f3effa;
+    --muted: #a78bfa;
+    --muted2: #7c62c9;
+    --accent: #d946ef;
+    --accent-purple: #8b5cf6;
+    --nav-h: 60px;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Space Grotesk', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: -10%; left: -10%;
+    width: 60vw; height: 60vw;
+    background: radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -10%; right: -10%;
+    width: 50vw; height: 50vw;
+    background: radial-gradient(circle, rgba(217, 70, 239, 0.1) 0%, transparent 70%);
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: var(--nav-h);
+    background: rgba(11, 7, 19, 0.7);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px;
+    z-index: 100;
+  }
+
+  nav .logo {
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text);
+    text-decoration: none;
+    cursor: pointer;
+    letter-spacing: -0.5px;
+  }
+  nav .logo span { color: var(--accent); }
+
+  nav .links { display: flex; gap: 8px; }
+  nav .links button {
+    background: none; border: none;
+    color: var(--muted);
+    font-family: var(--sans);
+    font-size: 0.9rem; font-weight: 400;
+    padding: 8px 16px; transition: all 0.2s ease;
+    cursor: pointer; border-radius: 20px;
+  }
+  nav .links button:hover { color: var(--text); background: rgba(168, 85, 247, 0.1); }
+  nav .links button.active { color: #ffffff; background: rgba(139, 92, 246, 0.3); backdrop-filter: blur(5px); }
+
+  .status-bar {
+    position: fixed; top: var(--nav-h); left: 0; right: 0;
+    height: 32px;
+    background: rgba(11, 7, 19, 0.85);
+    border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+    display: flex; align-items: center; padding: 0 40px; gap: 32px; z-index: 99;
+  }
+  .status-item { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 0.7rem; color: var(--muted2); }
+  .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 8px var(--accent); }
+
+  .main { padding-top: calc(var(--nav-h) + 32px); position: relative; z-index: 1; }
+  .app-page { display: none; }
+  .app-page.active { display: block; }
+
+  .hero { padding: 90px 40px 60px; max-width: 1200px; margin: 0 auto; }
+  .content { padding: 80px 40px; max-width: 1100px; margin: 0 auto; }
+
+  .hero-tag, .page-tag { font-family: var(--mono); font-size: 0.75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; font-weight: 500; }
+  .hero h1 { font-size: clamp(2.2rem, 5.5vw, 3.8rem); font-weight: 700; line-height: 1.15; margin-bottom: 24px; letter-spacing: -1px; }
+  .hero h1 .line1 { color: var(--muted); font-size: 0.5em; display: block; font-weight: 400; letter-spacing: 0; margin-bottom: 4px; }
+
+  .page-title { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; line-height: 1.2; margin-bottom: 16px; letter-spacing: -0.5px; }
+  .hero-sub, .page-desc { font-size: 1.05rem; color: var(--muted); margin-bottom: 48px; max-width: 680px; line-height: 1.6; }
+  .hero-sub strong, .page-desc strong { color: #ffffff; font-weight: 500; }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-top: 48px; }
+  .card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    padding: 36px; border: 1px solid var(--glass-border); border-radius: 12px;
+    display: flex; flex-direction: column; gap: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer;
+  }
+  .card:hover {
+    border-color: var(--glass-border-hover);
+    background: rgba(30, 20, 50, 0.7);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(139, 92, 246, 0.1);
+  }
+  .card-num { font-family: var(--mono); font-size: 0.75rem; color: var(--accent); font-weight: 500; }
+  .card-title { font-size: 1.25rem; font-weight: 600; color: #ffffff; }
+  .card-desc { font-size: 0.95rem; color: var(--muted); line-height: 1.5; flex: 1; }
+  .card-arrow { font-size: 0.9rem; font-weight: 500; color: var(--accent); transition: transform 0.2s; }
+  .card:hover .card-arrow { transform: translateX(6px); }
+
+  .content-section { padding: 60px 40px 80px; max-width: 1200px; margin: 0 auto; }
+  .section-header { display: flex; align-items: baseline; gap: 16px; margin-bottom: 40px; }
+  .section-num { font-family: var(--mono); font-size: 0.75rem; color: var(--accent); }
+  .section-title { font-size: 1.4rem; font-weight: 600; color: #ffffff; letter-spacing: -0.5px; }
+  .section-line { flex: 1; height: 1px; background: var(--glass-border); }
+
+  .tabs { display: flex; gap: 8px; margin-bottom: 36px; background: rgba(168, 85, 247, 0.05); padding: 4px; border-radius: 8px; width: fit-content; border: 1px solid var(--glass-border); }
+  .tab-btn {
+    background: none; border: none; padding: 10px 20px; border-radius: 6px;
+    font-size: 0.9rem; font-weight: 500; color: var(--muted); cursor: pointer; transition: all 0.2s;
+  }
+  .tab-btn:hover { color: #ffffff; }
+  .tab-btn.active { color: #ffffff; background: rgba(139, 92, 246, 0.4); backdrop-filter: blur(10px); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .profile-box {
+    background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border); border-radius: 12px; padding: 36px; margin-bottom: 48px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px;
+  }
+  .profile-meta-item { border-left: 2px solid rgba(168, 85, 247, 0.3); padding-left: 20px; }
+  .profile-meta-item:first-child { border-left-color: var(--accent); }
+  .info-label { font-family: var(--mono); font-size: 0.7rem; color: var(--muted2); text-transform: uppercase; margin-bottom: 6px; }
+  .info-value { font-size: 1.05rem; font-weight: 400; color: #ffffff; }
+  .info-value .tag { display: inline-block; background: rgba(139, 92, 246, 0.15); border: 1px solid var(--glass-border); padding: 2px 10px; border-radius: 4px; font-size: 0.85rem; color: #ffffff; }
+
+  .about-text { font-size: 1.1rem; line-height: 1.7; color: var(--muted); max-width: 760px; margin-bottom: 36px; }
+  .about-text strong { color: var(--accent); font-weight: 500; }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-tag { font-size: 0.85rem; color: #ffffff; border: 1px solid var(--glass-border); padding: 6px 14px; background: var(--glass-bg); border-radius: 20px; }
+
+  .task-list { display: flex; flex-direction: column; gap: 16px; margin-bottom: 48px; }
+  .task-item { background: var(--glass-bg); backdrop-filter: blur(12px); border: 1px solid var(--glass-border); padding: 32px; border-radius: 12px; display: flex; gap: 24px; align-items: flex-start; }
+  .task-index { font-family: var(--mono); font-size: 1.1rem; font-weight: 500; color: var(--accent); opacity: 0.8; }
+  .task-body { flex: 1; }
+  .task-title { font-size: 1.15rem; font-weight: 600; color: #ffffff; margin-bottom: 6px; display: block; }
+  .task-desc { font-size: 0.95rem; color: var(--muted); line-height: 1.6; display: block; }
+  .task-badge { padding: 4px 12px; font-size: 0.8rem; background: rgba(139, 92, 246, 0.15); border: 1px solid var(--glass-border); border-radius: 4px; white-space: nowrap; align-self: start; }
+
+  .bilan-block, .summary-block, .synthesis-block { background: var(--glass-bg); border: 1px solid var(--glass-border); border-left: 4px solid var(--accent); padding: 36px; border-radius: 0 12px 12px 0; }
+  .bilan-block h2, .summary-block h3, .synthesis-block h3 { font-size: 1.25rem; font-weight: 600; color: #ffffff; margin-bottom: 12px; }
+  .bilan-block p, .summary-block p, .synthesis-block p { font-size: 0.98rem; color: var(--muted); line-height: 1.65; }
+
+  .steps { margin-bottom: 48px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+  .step { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 32px; border-radius: 12px; }
+  .step-num { font-family: var(--mono); font-size: 1.1rem; color: var(--accent); margin-bottom: 16px; display: block; }
+  .step-title { font-size: 1.05rem; font-weight: 600; color: #ffffff; margin-bottom: 8px; display: block; }
+  .step-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.5; display: block; }
+
+  .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 48px; }
+  .metric-card { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 32px; border-radius: 12px; }
+  .metric-label { font-family: var(--mono); font-size: 0.7rem; color: var(--muted2); text-transform: uppercase; margin-bottom: 8px; }
+  .metric-value { font-size: 2.6rem; font-weight: 700; color: #ffffff; line-height: 1; margin-bottom: 6px; letter-spacing: -0.5px; }
+  .metric-sub { font-size: 0.88rem; color: var(--muted); }
+
+  .stack { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 48px; }
+  .stack-tag { font-size: 0.85rem; color: #ffffff; border: 1px solid var(--glass-border); padding: 6px 14px; background: rgba(168, 85, 247, 0.1); border-radius: 6px; }
+
+  .entity-block { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 36px; border-radius: 12px; display: flex; gap: 28px; }
+  .entity-icon { width: 48px; height: 48px; background: rgba(139, 92, 246, 0.1); border: 1px solid var(--glass-border); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+  .entity-name { font-size: 1.35rem; font-weight: 600; color: #ffffff; margin-bottom: 4px; }
+  .entity-role { font-size: 0.9rem; color: var(--accent); font-weight: 400; margin-bottom: 16px; }
+  .entity-desc { font-size: 0.98rem; color: var(--muted); line-height: 1.6; }
+  .entity-meta { display: flex; gap: 24px; flex-wrap: wrap; margin-top: 24px; padding-top: 24px; border-top: 1px solid rgba(168, 85, 247, 0.15); }
+  .entity-meta-item { font-size: 0.85rem; color: var(--muted2); }
+  .entity-meta-item span { color: #ffffff; }
+
+  .news-grid { display: flex; flex-direction: column; gap: 16px; margin-bottom: 48px; }
+  .news-item { background: var(--glass-bg); border: 1px solid var(--glass-border); padding: 32px; border-radius: 12px; display: flex; justify-content: space-between; align-items: baseline; gap: 40px; }
+  .news-title { font-size: 1.15rem; font-weight: 600; color: #ffffff; margin-bottom: 6px; }
+  .news-summary { font-size: 0.95rem; color: var(--muted); line-height: 1.55; }
+  .news-date { font-family: var(--mono); font-size: 0.8rem; color: var(--accent); white-space: nowrap; }
+  .sources { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+  .source-tag { font-size: 0.8rem; color: var(--muted); border: 1px solid var(--glass-border); padding: 4px 10px; background: rgba(0, 0, 0, 0.2); border-radius: 4px; }
+
+  footer { padding: 32px 40px; border-top: 1px solid var(--glass-border); background: rgba(11, 7, 19, 0.8); display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 1; }
+  .footer-left, .footer-right { font-size: 0.85rem; color: var(--muted2); display: flex; gap: 16px; }
+
+  .fade-in { opacity: 0; transform: translateY(12px); animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .hero, .content, .content-section { padding: 60px 20px; }
+    .metrics-grid { grid-template-columns: 1fr; gap: 16px; }
+    .steps { grid-template-columns: 1fr; gap: 16px; }
+    .task-item { flex-direction: column; gap: 16px; }
+    .entity-block { flex-direction: column; gap: 16px; }
+    .news-item { flex-direction: column-reverse; gap: 16px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+    .status-bar { padding: 0 20px; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div onclick="switchPage('accueil')" class="logo">
+    FLORENT GARRIGOS<span>.</span>
+  </div>
+  <div class="links">
+    <button id="nav-accueil" class="active" onclick="switchPage('accueil')">Index</button>
+    <button id="nav-missions" onclick="switchPage('missions')">Missions</button>
+    <button id="nav-projet" onclick="switchPage('projet')">Projet</button>
+    <button id="nav-veille" onclick="switchPage('veille')">Veille</button>
+    <button id="nav-contexte" onclick="switchPage('contexte')">Contexte</button>
+  </div>
+</nav>
+
+<div class="status-bar">
+  <div class="status-item">
+    <div class="status-dot"></div>
+    <span>BTS SIO · SISR</span>
+  </div>
+  <div class="status-item">
+    <span>SECTION:</span>&nbsp;<span id="status-page" style="color:var(--text); font-weight:500;">INDEX</span>
+  </div>
+  <div class="status-item">
+    <span>REF:</span>&nbsp;<span id="status-scope" style="color:var(--text); font-weight:500;">OVERVIEW</span>
+  </div>
+  <div class="status-item" style="margin-left:auto; font-family: var(--mono); font-size:0.75rem;">
+    2025 — 2027
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- PAGE ACCUEIL -->
+  <div id="page-accueil" class="app-page active">
+    <section class="hero">
+      <div class="hero-tag fade-in">Dossier Numérique · Épreuve E4</div>
+
+      <h1 class="fade-in">
+        <span class="line1">Technicien Systèmes &amp; Réseaux</span>
+        <span class="name">Parcours &amp; Travaux</span>
+      </h1>
+
+      <div class="hero-sub fade-in">
+        Actuellement en alternance au sein de la DSI de <strong>NGE Service</strong>, j'assure la maintenance opérationnelle et l'évolution des architectures réseaux du groupe.
+      </div>
+
+      <div class="profile-box fade-in">
+        <div class="profile-meta-item">
+          <div class="info-label">Statut</div>
+          <div class="info-value">En alternance</div>
+        </div>
+        <div class="profile-meta-item">
+          <div class="info-label">Entreprise</div>
+          <div class="info-value">NGE Service (DSI)</div>
+        </div>
+        <div class="profile-meta-item">
+          <div class="info-label">Formation</div>
+          <div class="info-value">BTS SIO option SISR</div>
+        </div>
+        <div class="profile-meta-item">
+          <div class="info-label">Centre de formation</div>
+          <div class="info-value">M2S Formation</div>
+        </div>
+      </div>
+
+      <div class="cards fade-in">
+        <div onclick="switchPage('missions')" class="card">
+          <span class="card-num">01 / ENTRÉES</span>
+          <div class="card-title">Missions DSI</div>
+          <div class="card-desc">Synthèse des interventions au quotidien : déploiements d'équipements, gestion d'incidents et supervision de parc.</div>
+          <span class="card-arrow">Consulter le registre →</span>
+        </div>
+        <div onclick="switchPage('projet')" class="card">
+          <span class="card-num">02 / ETUDE</span>
+          <div class="card-title">Projet Majeur</div>
+          <div class="card-desc">Analyse complète de la migration d'infrastructure nationale menée via Aruba Central et ClearPass.</div>
+          <span class="card-arrow">Ouvrir l'analyse →</span>
+        </div>
+        <div onclick="switchPage('veille')" class="card">
+          <span class="card-num">03 / RECHERCHE</span>
+          <div class="card-title">Veille Technologique</div>
+          <div class="card-desc">Étude approfondie de la philosophie Zero Trust et du contrôle d'accès réseau dynamique.</div>
+          <span class="card-arrow">Lire la synthèse →</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="content-section">
+      <div class="section-header">
+        <span class="section-num">00</span>
+        <span class="section-title">Présentation générale</span>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="about-text">
+        Intégré à l'équipe infrastructure nationale, mon rôle consiste à garantir la disponibilité et la sécurité des accès réseaux pour l'ensemble des filiales. Mon parcours associe l'exigence terrain des infrastructures du secteur BTP à la rigueur des architectures centralisées modernes.
+      </div>
+
+      <div class="skill-tags">
+        <span class="skill-tag">Cisco IOS</span>
+        <span class="skill-tag">Aruba OS</span>
+        <span class="skill-tag">VLAN &amp; Routage</span>
+        <span class="skill-tag">Architecture NAC</span>
+        <span class="skill-tag">Active Directory</span>
+        <span class="skill-tag">Windows Server</span>
+        <span class="skill-tag">Supervision (Coservit)</span>
+        <span class="skill-tag">Sécurité ISO 27001</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE MISSIONS -->
+  <div id="page-missions" class="app-page">
+    <div class="content">
+      <div class="page-tag">Registre d'activités</div>
+      <h1 class="page-title">Missions professionnelles</h1>
+      <p class="page-desc">
+        Interventions de niveaux 1 et 2 réalisées dans le cadre du support et du déploiement des infrastructures de la DSI de NGE Service.
+      </p>
+
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <span class="section-title">Activités d'infrastructure</span>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="task-list">
+        <div class="task-item">
+          <span class="task-index">01</span>
+          <div class="task-body">
+            <span class="task-title">Déploiement et Administration Aruba</span>
+            <span class="task-desc">Préparation technique et pré-configuration de commutateurs Aruba, expédition logistique et support au transfert de compétences vers les équipes d'exploitation.</span>
+          </div>
+          <span class="task-badge">Infrastructure</span>
+        </div>
+        <div class="task-item">
+          <span class="task-index">02</span>
+          <div class="task-body">
+            <span class="task-title">Interventions de Proximité &amp; Brassage</span>
+            <span class="task-desc">Audit, réfection et brassage de baies techniques. Intégration physique de nouveaux châssis sur différents sites du groupe.</span>
+          </div>
+          <span class="task-badge">Terrain</span>
+        </div>
+        <div class="task-item">
+          <span class="task-index">03</span>
+          <div class="task-body">
+            <span class="task-title">Maintenance de Systèmes de Stockage (NAS)</span>
+            <span class="task-desc">Supervision des volumes de réplication, resynchronisation de grappes RAID, suivi des correctifs constructeurs et formalisation des fiches d'exploitation.</span>
+          </div>
+          <span class="task-badge">Système</span>
+        </div>
+        <div class="task-item">
+          <span class="task-index">04</span>
+          <div class="task-body">
+            <span class="task-title">Intégration Supervision (Coservit)</span>
+            <span class="task-desc">Modélisation des matrices d'alertes et provisionnement des nouveaux commutateurs dans l'outil de monitoring central avant livraison.</span>
+          </div>
+          <span class="task-badge">Supervision</span>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <span class="section-title">Bilan technique</span>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="bilan-block">
+        <h2>Compétences acquises</h2>
+        <p>
+          Ces interventions consolident ma compréhension des flux de production à grande échelle. Elles requièrent une méthodologie stricte pour mener de front la préparation en atelier, la validation logicielle et la maintenance opérationnelle des plateformes distribuées.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE PROJET -->
+  <div id="page-projet" class="app-page">
+    <div class="content">
+      <div class="page-tag">Cas d'étude · Épreuve E4</div>
+      <h1 class="page-title">Gestion centralisée &amp; Contrôle d'accès réseau</h1>
+      <p class="page-desc">
+        Participation au projet de mise en conformité <strong>ISO 27001</strong> de NGE à travers l'unification du parc de commutateurs et le déploiement d'une politique de sécurité des accès au réseau local (NAC).
+      </p>
+
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <span class="section-title">Méthodologie de projet</span>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">01 /</span>
+          <div class="step-content">
+            <span class="step-title">Audit &amp; Maquettage</span>
+            <span class="step-desc">Analyse critique de la topologie existante, élaboration d'un Proof of Concept (POC) sur l'orchestrateur Aruba Central et interconnexion avec ClearPass.</span>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">02 /</span>
+          <div class="step-content">
+            <span class="step-title">Ingénierie Documentaire</span>
+            <span class="step-desc">Production des schémas d'architecture cible, des abaques d'adressage et des modes opératoires de migration destinés au support.</span>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">03 /</span>
+          <div class="step-content">
+            <span class="step-title">Segmentation active</span>
+            <span class="step-desc">Définition des profils de ports, écriture des scripts de configuration en ligne de commande (CLI) et ségrégation stricte des VLANs.</span>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">04 /</span>
+          <div class="step-content">
+            <span class="step-title">Déploiement</span>
+            <span class="step-desc">Bascule ordonnancée des équipements sur site et validation de la remontée des télémétries sur la console cloud.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <span class="section-title">Indicateurs clés</span>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Périmètre</div>
+          <div class="metric-value">130+</div>
+          <div class="metric-sub">Agences et sites interconnectés</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Volume matériel</div>
+          <div class="metric-value">~500</div>
+          <div class="metric-sub">Commutateurs managés</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Contrôle d'accès</div>
+          <div class="metric-value">NAC</div>
+          <div class="metric-sub">Authentification 802.1X &amp; MAC</div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <span class="section-title">Environnement technologique</span>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="stack">
+        <span class="stack-tag">Aruba Central Cloud</span>
+        <span class="stack-tag">ClearPass Policy Manager</span>
+        <span class="stack-tag">802.1X / EAP-TLS</span>
+        <span class="stack-tag">Active Directory / LDAP</span>
+        <span class="stack-tag">RADIUS</span>
+        <span class="stack-tag">VLAN dynamiques</span>
+        <span class="stack-tag">Zero Trust Network Access</span>
+        <span class="stack-tag">Cisco IOS</span>
+      </div>
+
+      <div class="section-header">
+        <span class="section-num">04</span>
+        <span class="section-title">Résultats &amp; apports</span>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="summary-block">
+        <h3>Bilan de participation</h3>
+        <p>
+          Ce projet m'a permis de maîtriser le cycle complet d'un déploiement d'infrastructure réseau à grande échelle, depuis la phase d'audit jusqu'à la mise en production. La coordination avec les équipes terrain et la rigueur documentaire ont été les facteurs clés de réussite. L'architecture NAC déployée renforce la posture de sécurité du groupe en alignement avec la norme ISO 27001.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE VEILLE -->
+  <div id="page-veille" class="app-page">
+    <div class="content">
+      <div class="page-tag">Veille Technologique · 2025</div>
+      <h1 class="page-title">Zero Trust &amp; Contrôle d'accès réseau</h1>
+      <p class="page-desc">
+        Analyse des tendances actuelles en matière de sécurité réseau, avec un focus sur le modèle <strong>Zero Trust</strong> et les architectures de contrôle d'accès dynamique (NAC).
+      </p>
+
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <span class="section-title">Articles &amp; publications suivis</span>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="news-grid">
+        <div class="news-item">
+          <div>
+            <div class="news-title">L'évolution du modèle Zero Trust en entreprise</div>
+            <div class="news-summary">Les organisations adoptent massivement le Zero Trust pour remplacer le modèle périmétrique traditionnel. Le principe « never trust, always verify » s'impose comme standard dans les DSI modernes, notamment avec la montée du télétravail et des environnements hybrides.</div>
+            <div class="sources">
+              <span class="source-tag">ANSSI</span>
+              <span class="source-tag">Gartner</span>
+            </div>
+          </div>
+          <div class="news-date">Fév. 2025</div>
+        </div>
+        <div class="news-item">
+          <div>
+            <div class="news-title">802.1X et authentification contextuelle</div>
+            <div class="news-summary">L'authentification par port 802.1X couplée à une politique contextuelle (posture de l'équipement, identité, localisation) devient incontournable dans les déploiements NAC. ClearPass et ISE s'imposent comme références du marché.</div>
+            <div class="sources">
+              <span class="source-tag">Aruba Networks</span>
+              <span class="source-tag">Cisco</span>
+            </div>
+          </div>
+          <div class="news-date">Janv. 2025</div>
+        </div>
+        <div class="news-item">
+          <div>
+            <div class="news-title">Segmentation réseau et microsegmentation</div>
+            <div class="news-summary">La microsegmentation par VLAN dynamique permet de contenir les mouvements latéraux en cas de compromission. Cette approche, couplée au NAC, constitue un rempart efficace contre les ransomwares dans les environnements industriels et BTP.</div>
+            <div class="sources">
+              <span class="source-tag">NIST SP 800-207</span>
+              <span class="source-tag">CIS Controls</span>
+            </div>
+          </div>
+          <div class="news-date">Mars 2025</div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <span class="section-title">Synthèse critique</span>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="synthesis-block">
+        <h3>Apports &amp; mise en perspective</h3>
+        <p>
+          Cette veille confirme la pertinence du projet NAC mené chez NGE au regard des évolutions du secteur. Le déploiement de ClearPass s'inscrit directement dans la philosophie Zero Trust : chaque connexion est authentifiée, autorisée et journalisée indépendamment de la localisation physique. La convergence entre les outils d'orchestration cloud (Aruba Central) et les politiques de sécurité granulaires représente l'axe stratégique majeur des prochaines années pour les infrastructures d'entreprise.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE CONTEXTE -->
+  <div id="page-contexte" class="app-page">
+    <div class="content">
+      <div class="page-tag">Contexte professionnel</div>
+      <h1 class="page-title">NGE Service — DSI</h1>
+      <p class="page-desc">
+        Présentation de la structure d'accueil et du cadre de l'alternance dans lequel s'inscrit ce dossier de compétences.
+      </p>
+
+      <div class="section-header">
+        <span class="section-num">01</span>
+        <span class="section-title">L'entreprise</span>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="entity-block" style="margin-bottom: 48px;">
+        <div class="entity-icon">🏗️</div>
+        <div>
+          <div class="entity-name">NGE Service</div>
+          <div class="entity-role">Direction des Systèmes d'Information — Infrastructure &amp; Réseaux</div>
+          <div class="entity-desc">
+            NGE est un groupe de construction et de travaux publics de premier plan, présent sur l'ensemble du territoire national. La DSI centralise la gestion des systèmes d'information pour l'ensemble des filiales du groupe, assurant la cohérence et la sécurité des infrastructures numériques.
+          </div>
+          <div class="entity-meta">
+            <div class="entity-meta-item">Secteur : <span>BTP / Travaux Publics</span></div>
+            <div class="entity-meta-item">Filiales : <span>130+ agences</span></div>
+            <div class="entity-meta-item">Effectifs : <span>~10 000 collaborateurs</span></div>
+            <div class="entity-meta-item">Infrastructure : <span>~500 commutateurs managés</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-header">
+        <span class="section-num">02</span>
+        <span class="section-title">Mon rôle au sein de la DSI</span>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="about-text">
+        En tant que technicien réseau en alternance, j'interviens sur les projets d'évolution de l'infrastructure nationale, en collaboration directe avec les ingénieurs et administrateurs système. Mes responsabilités couvrent le déploiement, la configuration, la supervision et la documentation des équipements réseau du groupe.
+      </div>
+
+      <div class="section-header">
+        <span class="section-num">03</span>
+        <span class="section-title">Formation</span>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="entity-block">
+        <div class="entity-icon">🎓</div>
+        <div>
+          <div class="entity-name">M2S Formation</div>
+          <div class="entity-role">BTS SIO — option SISR (Solutions d'Infrastructure, Systèmes et Réseaux)</div>
+          <div class="entity-desc">
+            Formation en deux ans en alternance, alternant périodes en entreprise et sessions de formation théorique. Le BTS SIO SISR prépare aux métiers de l'administration réseau, de la sécurité et des systèmes d'information.
+          </div>
+          <div class="entity-meta">
+            <div class="entity-meta-item">Durée : <span>2025 — 2027</span></div>
+            <div class="entity-meta-item">Rythme : <span>Alternance</span></div>
+            <div class="entity-meta-item">Spécialité : <span>SISR</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-left">
+    <span>Florent Garrigos</span>
+    <span>·</span>
+    <span>BTS SIO SISR</span>
+  </div>
+  <div class="footer-right">
+    <span>NGE Service — DSI</span>
+    <span>·</span>
+    <span>2025 — 2027</span>
+  </div>
+</footer>
+
+<script>
+  const pages = ['accueil', 'missions', 'projet', 'veille', 'contexte'];
+  const statusLabels = {
+    accueil: { page: 'INDEX', scope: 'OVERVIEW' },
+    missions: { page: 'MISSIONS', scope: 'ACTIVITÉS' },
+    projet: { page: 'PROJET', scope: 'E4 — NAC' },
+    veille: { page: 'VEILLE', scope: 'ZERO TRUST' },
+    contexte: { page: 'CONTEXTE', scope: 'NGE SERVICE' }
+  };
+
+  function switchPage(name) {
+    pages.forEach(p => {
+      const page = document.getElementById('page-' + p);
+      const btn = document.getElementById('nav-' + p);
+      if (page) page.classList.toggle('active', p === name);
+      if (btn) btn.classList.toggle('active', p === name);
+    });
+    const lbl = statusLabels[name] || { page: name.toUpperCase(), scope: '—' };
+    document.getElementById('status-page').textContent = lbl.page;
+    document.getElementById('status-scope').textContent = lbl.scope;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
