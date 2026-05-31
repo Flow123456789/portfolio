@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
+<!-- saved from url=(0052)https://flow123456789.github.io/portfolio/index.html -->
+<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portfolio — Florent Garrigos</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link href="./Portfolio — Florent Garrigos_files/css2" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -216,6 +216,51 @@
   footer { padding: 32px 40px; border-top: 1px solid var(--glass-border); background: rgba(11, 7, 19, 0.8); display: flex; align-items: center; justify-content: space-between; position: relative; z-index: 1; }
   .footer-left, .footer-right { font-size: 0.85rem; color: var(--muted2); display: flex; gap: 16px; }
 
+  /* ── VEILLE ARUBA ── */
+  .veille-usage-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 8px; }
+  .usage-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; padding: 28px 20px; display: flex; flex-direction: column; align-items: center; gap: 12px; text-align: center; transition: all 0.3s; }
+  .usage-card:hover { border-color: var(--glass-border-hover); transform: translateY(-4px); }
+  .usage-card.usage-main { border-color: rgba(217,70,239,0.3); }
+  .usage-ring { position: relative; width: 80px; height: 80px; flex-shrink: 0; }
+  .usage-ring svg { width: 80px; height: 80px; }
+  .usage-pct { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 1.1rem; font-weight: 700; color: #fff; }
+  .usage-label { font-size: 0.95rem; font-weight: 600; color: #fff; }
+  .usage-sub { font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
+
+  .veille-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .feat-item { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 10px; padding: 20px; display: flex; align-items: flex-start; gap: 14px; transition: border-color 0.2s; }
+  .feat-item:hover { border-color: var(--glass-border-hover); }
+  .feat-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 2px; }
+  .feat-title { font-size: 0.9rem; font-weight: 600; color: #fff; margin-bottom: 4px; }
+  .feat-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.4; }
+
+  .veille-timeline { display: flex; flex-direction: column; gap: 0; position: relative; padding-left: 28px; border-left: 2px solid var(--glass-border); margin-bottom: 8px; }
+  .tl-item { display: grid; grid-template-columns: 80px 1fr; gap: 20px; align-items: start; padding: 20px 0; position: relative; }
+  .tl-dot { position: absolute; left: -37px; top: 26px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); border: 2px solid var(--bg); }
+  .tl-dot--mid { background: var(--accent-purple); box-shadow: 0 0 10px var(--accent-purple); }
+  .tl-dot--end { background: var(--muted); box-shadow: none; }
+  .tl-date { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); padding-top: 4px; }
+  .tl-title { font-size: 1rem; font-weight: 600; color: #fff; margin-bottom: 4px; }
+  .tl-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.5; }
+
+  .veille-proscons { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .pros-block, .cons-block { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; overflow: hidden; }
+  .pros-block { border-top: 3px solid #22c55e; }
+  .cons-block { border-top: 3px solid var(--accent); }
+  .pc-header { padding: 14px 20px; font-family: var(--mono); font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; }
+  .pc-header--pros { color: #22c55e; background: rgba(34,197,94,0.06); }
+  .pc-header--cons { color: var(--accent); background: rgba(217,70,239,0.06); }
+  .pc-list { list-style: none; padding: 12px 20px 20px; display: flex; flex-direction: column; gap: 10px; }
+  .pc-list li { font-size: 0.9rem; color: var(--muted); padding-left: 14px; position: relative; line-height: 1.4; }
+  .pc-list li::before { content: '—'; position: absolute; left: 0; color: var(--muted2); }
+
+  @media (max-width: 768px) {
+    .veille-usage-grid { grid-template-columns: 1fr; }
+    .veille-features { grid-template-columns: 1fr; }
+    .veille-proscons { grid-template-columns: 1fr; }
+    .tl-item { grid-template-columns: 70px 1fr; }
+  }
+
   .fade-in { opacity: 0; transform: translateY(12px); animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
   @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
 
@@ -231,19 +276,19 @@
     .status-bar { padding: 0 20px; gap: 16px; }
   }
 </style>
-</head>
+<style type="text/css"></style></head>
 <body>
 
 <nav>
-  <div onclick="switchPage('accueil')" class="logo">
+  <div onclick="switchPage(&#39;accueil&#39;)" class="logo">
     FLORENT GARRIGOS<span>.</span>
   </div>
   <div class="links">
-    <button id="nav-accueil" class="active" onclick="switchPage('accueil')">Index</button>
-    <button id="nav-missions" onclick="switchPage('missions')">Missions</button>
-    <button id="nav-projet" onclick="switchPage('projet')">Projet</button>
-    <button id="nav-veille" onclick="switchPage('veille')">Veille</button>
-    <button id="nav-contexte" onclick="switchPage('contexte')">Contexte</button>
+    <button id="nav-accueil" class="active" onclick="switchPage(&#39;accueil&#39;)">Index</button>
+    <button id="nav-missions" onclick="switchPage(&#39;missions&#39;)">Missions</button>
+    <button id="nav-projet" onclick="switchPage(&#39;projet&#39;)">Projet</button>
+    <button id="nav-veille" onclick="switchPage(&#39;veille&#39;)">Veille</button>
+    <button id="nav-contexte" onclick="switchPage(&#39;contexte&#39;)">Contexte</button>
   </div>
 </nav>
 
@@ -299,19 +344,19 @@
       </div>
 
       <div class="cards fade-in">
-        <div onclick="switchPage('missions')" class="card">
+        <div onclick="switchPage(&#39;missions&#39;)" class="card">
           <span class="card-num">01 / ENTRÉES</span>
           <div class="card-title">Missions DSI</div>
           <div class="card-desc">Synthèse des interventions au quotidien : déploiements d'équipements, gestion d'incidents et supervision de parc.</div>
           <span class="card-arrow">Consulter le registre →</span>
         </div>
-        <div onclick="switchPage('projet')" class="card">
+        <div onclick="switchPage(&#39;projet&#39;)" class="card">
           <span class="card-num">02 / ETUDE</span>
           <div class="card-title">Projet Majeur</div>
           <div class="card-desc">Analyse complète de la migration d'infrastructure nationale menée via Aruba Central et ClearPass.</div>
           <span class="card-arrow">Ouvrir l'analyse →</span>
         </div>
-        <div onclick="switchPage('veille')" class="card">
+        <div onclick="switchPage(&#39;veille&#39;)" class="card">
           <span class="card-num">03 / RECHERCHE</span>
           <div class="card-title">Veille Technologique</div>
           <div class="card-desc">Étude approfondie de la philosophie Zero Trust et du contrôle d'accès réseau dynamique.</div>
@@ -514,64 +559,165 @@
   <!-- PAGE VEILLE -->
   <div id="page-veille" class="app-page">
     <div class="content">
-      <div class="page-tag">Veille Technologique · 2025</div>
-      <h1 class="page-title">Zero Trust &amp; Contrôle d'accès réseau</h1>
+      <div class="page-tag">Veille Technologique · 2025–2026</div>
+      <h1 class="page-title">HPE Aruba Networking Central</h1>
       <p class="page-desc">
-        Analyse des tendances actuelles en matière de sécurité réseau, avec un focus sur le modèle <strong>Zero Trust</strong> et les architectures de contrôle d'accès dynamique (NAC).
+        Solution de gestion réseau cloud unifiée intégrant <strong>AIOps</strong>, automatisation et supervision intelligente pour les infrastructures d'entreprise.
       </p>
 
+      <!-- SECTION 01 : Usages -->
       <div class="section-header">
         <span class="section-num">01</span>
-        <span class="section-title">Articles &amp; publications suivis</span>
+        <span class="section-title">Répartition des usages</span>
         <div class="section-line"></div>
       </div>
 
-      <div class="news-grid">
-        <div class="news-item">
-          <div>
-            <div class="news-title">L'évolution du modèle Zero Trust en entreprise</div>
-            <div class="news-summary">Les organisations adoptent massivement le Zero Trust pour remplacer le modèle périmétrique traditionnel. Le principe « never trust, always verify » s'impose comme standard dans les DSI modernes, notamment avec la montée du télétravail et des environnements hybrides.</div>
-            <div class="sources">
-              <span class="source-tag">ANSSI</span>
-              <span class="source-tag">Gartner</span>
-            </div>
+      <div class="veille-usage-grid">
+        <div class="usage-card usage-main">
+          <div class="usage-ring" style="--pct:50; --color:#d946ef;">
+            <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" fill="none" stroke="rgba(217,70,239,0.12)" stroke-width="8"/><circle cx="40" cy="40" r="32" fill="none" stroke="#d946ef" stroke-width="8" stroke-dasharray="201" stroke-dashoffset="100" stroke-linecap="round" transform="rotate(-90 40 40)"/></svg>
+            <span class="usage-pct">50%</span>
           </div>
-          <div class="news-date">Fév. 2025</div>
+          <div class="usage-label">Administration simplifiée</div>
+          <div class="usage-sub">Gestion centralisée des équipements réseau</div>
         </div>
-        <div class="news-item">
-          <div>
-            <div class="news-title">802.1X et authentification contextuelle</div>
-            <div class="news-summary">L'authentification par port 802.1X couplée à une politique contextuelle (posture de l'équipement, identité, localisation) devient incontournable dans les déploiements NAC. ClearPass et ISE s'imposent comme références du marché.</div>
-            <div class="sources">
-              <span class="source-tag">Aruba Networks</span>
-              <span class="source-tag">Cisco</span>
-            </div>
+        <div class="usage-card">
+          <div class="usage-ring" style="--pct:30; --color:#8b5cf6;">
+            <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" fill="none" stroke="rgba(139,92,246,0.12)" stroke-width="8"/><circle cx="40" cy="40" r="32" fill="none" stroke="#8b5cf6" stroke-width="8" stroke-dasharray="201" stroke-dashoffset="141" stroke-linecap="round" transform="rotate(-90 40 40)"/></svg>
+            <span class="usage-pct">30%</span>
           </div>
-          <div class="news-date">Janv. 2025</div>
+          <div class="usage-label">Automatisation</div>
+          <div class="usage-sub">Tâches réseau répétitives</div>
         </div>
-        <div class="news-item">
-          <div>
-            <div class="news-title">Segmentation réseau et microsegmentation</div>
-            <div class="news-summary">La microsegmentation par VLAN dynamique permet de contenir les mouvements latéraux en cas de compromission. Cette approche, couplée au NAC, constitue un rempart efficace contre les ransomwares dans les environnements industriels et BTP.</div>
-            <div class="sources">
-              <span class="source-tag">NIST SP 800-207</span>
-              <span class="source-tag">CIS Controls</span>
-            </div>
+        <div class="usage-card">
+          <div class="usage-ring" style="--pct:20; --color:#a78bfa;">
+            <svg viewBox="0 0 80 80"><circle cx="40" cy="40" r="32" fill="none" stroke="rgba(167,139,250,0.12)" stroke-width="8"/><circle cx="40" cy="40" r="32" fill="none" stroke="#a78bfa" stroke-width="8" stroke-dasharray="201" stroke-dashoffset="161" stroke-linecap="round" transform="rotate(-90 40 40)"/></svg>
+            <span class="usage-pct">20%</span>
           </div>
-          <div class="news-date">Mars 2025</div>
+          <div class="usage-label">Supervision IA</div>
+          <div class="usage-sub">Observabilité améliorée</div>
         </div>
       </div>
 
-      <div class="section-header">
+      <!-- SECTION 02 : Fonctionnalités -->
+      <div class="section-header" style="margin-top: 56px;">
         <span class="section-num">02</span>
-        <span class="section-title">Synthèse critique</span>
+        <span class="section-title">Fonctionnalités clés</span>
         <div class="section-line"></div>
       </div>
 
-      <div class="synthesis-block">
-        <h3>Apports &amp; mise en perspective</h3>
+      <div class="veille-features">
+        <div class="feat-item">
+          <div class="feat-icon">⚡</div>
+          <div>
+            <div class="feat-title">Automatisation &amp; Intégration</div>
+            <div class="feat-desc">Pilotage des outils IT via workflows automatisés</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">🔒</div>
+          <div>
+            <div class="feat-title">Gestion unifiée DHCP &amp; DNS</div>
+            <div class="feat-desc">Service réseau centralisé multi-sites</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">📊</div>
+          <div>
+            <div class="feat-title">Analyse des performances</div>
+            <div class="feat-desc">Optimisation réseau par l'IA AIOps</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">🚀</div>
+          <div>
+            <div class="feat-title">Déploiement automatisé</div>
+            <div class="feat-desc">Zero-touch provisioning des configurations</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">🛡️</div>
+          <div>
+            <div class="feat-title">Supervision en temps réel</div>
+            <div class="feat-desc">Visibilité instantanée sur l'état du réseau</div>
+          </div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-icon">🌐</div>
+          <div>
+            <div class="feat-title">Gestion simplifiée</div>
+            <div class="feat-desc">Administration unifiée de tous les équipements</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 03 : Timeline -->
+      <div class="section-header" style="margin-top: 56px;">
+        <span class="section-num">03</span>
+        <span class="section-title">Évolutions récentes</span>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="veille-timeline">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <div class="tl-date">2025</div>
+          <div class="tl-body">
+            <div class="tl-title">Self-Driving Network</div>
+            <div class="tl-desc">Le réseau détecte, diagnostique et résout les incidents <strong style="color:#fff">sans intervention humaine</strong>. Actions autonomes : optimisation de capacité, remédiation VLAN, protection DHCP, roaming client.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot tl-dot--mid"></div>
+          <div class="tl-date">2025–2026</div>
+          <div class="tl-body">
+            <div class="tl-title">New Central Interface</div>
+            <div class="tl-desc">Nouvelle interface utilisateur modernisée, déployée progressivement</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot tl-dot--end"></div>
+          <div class="tl-date">2026</div>
+          <div class="tl-body">
+            <div class="tl-title">AIOps Tools</div>
+            <div class="tl-desc">IA agentique capable de <strong style="color:#fff">raisonner et décider</strong> sur le comportement réseau. Intègre le Large Experience Model de Juniper Mist — analyse de milliards de points de données (Zoom, Teams…) directement dans Aruba Central.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 04 : Pros/Cons -->
+      <div class="section-header" style="margin-top: 56px;">
+        <span class="section-num">04</span>
+        <span class="section-title">Analyse critique</span>
+        <div class="section-line"></div>
+      </div>
+
+      <div class="veille-proscons">
+        <div class="pros-block">
+          <div class="pc-header pc-header--pros">✓ Points forts</div>
+          <ul class="pc-list">
+            <li>Administration simplifiée</li>
+            <li>Gain de temps opérationnel</li>
+            <li>Détection proactive des incidents</li>
+            <li>Gestion multi-sites unifiée</li>
+            <li>Automatisation avancée</li>
+          </ul>
+        </div>
+        <div class="cons-block">
+          <div class="pc-header pc-header--cons">✕ Limites</div>
+          <ul class="pc-list">
+            <li>Dépendance au cloud</li>
+            <li>Coût des licences élevé</li>
+            <li>Interface parfois instable</li>
+            <li>Bugs de configuration signalés</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="synthesis-block" style="margin-top: 40px;">
+        <h3>Mise en perspective</h3>
         <p>
-          Cette veille confirme la pertinence du projet NAC mené chez NGE au regard des évolutions du secteur. Le déploiement de ClearPass s'inscrit directement dans la philosophie Zero Trust : chaque connexion est authentifiée, autorisée et journalisée indépendamment de la localisation physique. La convergence entre les outils d'orchestration cloud (Aruba Central) et les politiques de sécurité granulaires représente l'axe stratégique majeur des prochaines années pour les infrastructures d'entreprise.
+          HPE Aruba Central s'impose comme orchestrateur de référence pour les DSI gérant des parcs distribués. Son intégration dans le projet NGE est directement alignée avec ses capacités de déploiement automatisé et de supervision centralisée à grande échelle.
         </p>
       </div>
     </div>
@@ -681,5 +827,43 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 </script>
-</body>
-</html>
+
+
+<div id="give-freely-root-ejkiikneibegknkgimmihdpcbcedgmpo" class="give-freely-root" data-extension-id="ejkiikneibegknkgimmihdpcbcedgmpo" data-extension-name="Volume Booster" style="display: block;"><template shadowrootmode="open"><style>
+  :host {
+    all: initial;
+  }
+
+  .gf-scroll-remove::-webkit-scrollbar {
+    border-radius-bottom-right: 15px;
+  }
+
+  button {
+    cursor: pointer;
+    transition: transform 0.1s ease;
+  }
+
+  button:active {
+    transform: scale(0.98);
+  }
+
+  .give-freely-close-button:hover {
+    opacity: 0.7;
+  }
+
+  input[type="radio"] {
+    margin-right: 8px;
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid #e5e5e5;
+    margin: 1em 0;
+  }
+
+  @media (max-width: 600px), (max-height: 480px) {
+    #give-freely-checkout-popup {
+      display: none !important;
+    }
+  }
+</style><div><div class="gf-app"></div></div></template></div></body></html>
